@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[title]</title>
+    <script src="https://hcaptcha.com/1/api.js" async defer></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+        body {
+            background-color: #000;
+            color: #FFF; /* White color */
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .border-box,
+            .new-border-box {
+                padding: 10px; /* Decrease padding for smaller screens */
+            }
+            .calculator {
+                padding: 10px; /* Decrease padding for smaller screens */
+            }
+        }
+
+        h1 {
+            text-align: left;
+            font-family: 'Press Start 2P', cursive; /* Pixel NES font */
+            color: #2c9080; /* Color #2c9080 */
+            font-size: 24px; /* Smaller font size */
+            margin-left: 10px; /* Align to the left */
+        }
+
+        @media only screen and (max-width: 600px) {
+            h1 {
+                font-size: 20px; /* Adjust font size for smaller screens */
+            }
+        }
+        
+        .pixel-title {
+            font-family: 'Press Start 2P', cursive; /* Pixel NES font */
+            color: #2c9080; /* Bright teal color */
+            font-size: 48px; /* Larger font size */
+            text-align: center; /* Center align */
+            text-transform: uppercase; /* Uppercase text */
+            margin-top: 20px; /* Add margin top */
+        }
+
+        .pixel-title span {
+            color: #2c9080; /* Bright teal color */
+            text-shadow: -2px -2px 0px #004f46, 2px -2px 0px #004f46, -2px 2px 0px #004f46, 2px 2px 0px #004f46; /* Outlines */
+        }
+
+        h2 {
+            display: inline;
+            font-size: 20px; /* Smaller font size */
+            margin: 0;
+            animation: flicker 0.5s infinite alternate-reverse;
+            color: #00FF00; /* Neon green color */
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; } /* Reduced opacity */
+            100% { opacity: 1; }
+        }
+
+        .border-box {
+            border: 2px solid #383838; /* Gray border */
+            padding: 20px;
+            margin: 20px auto; /* Center the box horizontally */
+            max-width: 800px; /* Adjusted width */
+            width: 100%; /* Make the width 100% */
+            color: #FFF; /* White text */
+            border-radius: 5px; /* Border radius */
+            font-family: 'russiangothic', 'ms ui gothic', 'nec_apc3', 'Tahoma', sans-serif;
+        }
+
+        .description {
+            color: #FFF; /* White text */
+        }
+
+        .contact-box {
+            margin-top: 20px;
+            color: #FFF; /* White text */
+            max-width: 800px; /* Adjusted width */
+            margin: 20px auto; /* Center the box horizontally */
+        }
+
+        .social-links {
+            display: none; /* Hide social links by default */
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin-right: 10px;
+            color: #FFF; /* White color for links */
+            text-decoration: none; /* Remove underline from links */
+        }
+
+        .submit-button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: none; /* Initially hide submit button */
+            font-size: 16px;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer; /* Change cursor to pointer */
+        }
+
+        #email {
+            cursor: pointer;
+            text-decoration: underline;
+            color: #FFF; /* White color */
+        }
+
+        #email:hover {
+            text-decoration: none;
+        }
+
+        /* New border box */
+        .new-border-box {
+            border: 2px solid #383838; /* Gray border */
+            padding: 20px;
+            margin: 20px auto; /* Center the box horizontally */
+            max-width: 800px; /* Adjusted width */
+            color: #FFF; /* White text */
+            border-radius: 5px; /* Border radius */
+            font-family: 'russiangothic', 'ms ui gothic', 'nec_apc3', 'Tahoma', sans-serif;
+            display: flex;
+            flex-wrap: wrap; /* Allow flex items to wrap */
+            justify-content: space-between; /* Adjusted alignment */
+        }
+
+        .smaller-box {
+            flex: 1;
+            margin-right: 10px;
+            margin-bottom: 10px; /* Add margin bottom */
+            max-width: calc(33.33% - 10px); /* Adjusted width */
+        }
+
+        .smaller-box .title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .smaller-box .content {
+            font-size: 16px;
+        }
+
+        /* GitHub projects styling */
+        .github-projects {
+            flex: 1; /* Take full width */
+            margin-right: 0; /* Reset margin right */
+            max-width: calc(33.33% - 10px); /* Adjusted width */
+        }
+
+        .github-projects .title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .github-projects .project-link {
+            display: block;
+            color: #FFF; /* White color for links */
+            text-decoration: none; /* Remove underline from links */
+            margin-bottom: 5px; /* Add margin bottom */
+        }
+
+        /* Added styles for the copyright notice */
+        .copyright {
+            text-align: center;
+            margin-top: 20px;
+            color: #FFF; /* White color */
+        }
+
+        /* Calculator styles */
+        .calculator {
+            border: 2px solid #383838;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px; /* Adjusted width */
+            border-radius: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .numbers {
+            width: 60%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .symbols {
+            width: 30%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .calculator input[type="text"] {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #383838;
+            background-color: #000;
+            color: #FFF;
+        }
+
+        .calculator input[type="button"] {
+            width: calc(33.33% - 5px);
+            padding: 5px;
+            border: 2px solid #383838;
+            border-radius: 15px;
+            cursor: pointer;
+            background-color: transparent;
+            color: #FFF;
+            margin-bottom: 5px;
+        }
+
+        .calculator input[type="button"].clear {
+            background-color: #000;
+        }
+
+        .calculator input[type="button"].clear:hover {
+            background-color: #111;
+        }
+
+        .calculator-title {
+            width: 100%;
+            text-align: center;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        #status {
+            color: lime;
+            text-shadow: rgb(4 255 214 / 0%) 0px 0px 10px, rgb(0 255 236 / 17%) 0px 0px 20px, rgb(2 230 0 / 17%) 0px 0px 20px, rgb(0 230 178 / 0%) 0px 0px 20px, rgb(0 230 27 / 24%) 0px 0px 20px, rgb(0 230 178 / 0%) 0px 0px 60px, rgb(0 230 122 / 0%) 0px 0px 20px;
+            font-family: 'Press Start 2P', cursive; /* Pixel NES font */
+        }
+
+        /* Adjusted position for online status */
+        .online-status {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            margin-right: 20px;
+        }
+
+        /* Style for the online status box */
+        .online-status .box {
+            border: 2px solid #383838;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Adjust width and size here */
+            width: 375px; /* Adjust the width as needed */
+        }
+
+        .online-status .box span {
+            color: #FFF;
+            font-family: 'Press Start 2P', cursive;
+        }
+
+        /* Add a media query for smaller screens */
+        @media only screen and (max-width: 600px) {
+            .online-status .box {
+                width: 100%; /* Adjust the width for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Pixel title -->
+<div class="pixel-title">
+    <span>-</span><span>-</span><span>-</span><span>-</span><span>-</span>
+</div>
+
+<div class="border-box">
+    <h1>[welcome message]</h1>
+    <div class="description">
+        <p>[description]</p>
+        <p>[description]</p>
+        <h3>[facts]</h3>
+        <ul>
+            <li>[fact]</li>
+            <li>[fact]</li>
+            <li>[fact]</li>
+            <li>[fact]</li>
+            <li>[fact]</li>
+        </ul>
+    </div>
+</div>
+
+
+
+<!-- New border box with three smaller boxes -->
+<div class="new-border-box">
+    <div class="smaller-box">
+        <div class="title">Current Time, Date, and Timezone in Poland</div>
+        <div class="content" id="poland-time"></div>
+    </div>
+    <div class="smaller-box github-projects">
+        <div class="title">[links]</div>
+        <div class="content">
+            <a href="[link]" class="project-link">[title]</a>
+            <a href="[link]" class="project-link">[title]</a>
+            <!-- Add more project links as needed -->
+        </div>
+    </div>
+    <div class="smaller-box">
+        <div class="content">
+            <div class="online-status">
+                <div class="box centerbox" style="margin-top: 10px">
+                    <span style="font-family: 'russiangothic', 'ms ui gothic', 'nec_apc3', 'Tahoma', sans-serif;">I'm </span>
+                    <h2 id="status" style="color:lime;text-shadow:rgb(4 255 214 / 0%) 0px 0px 10px, rgb(0 255 236 / 17%) 0px 0px 20px, rgb(2 230 0 / 17%) 0px 0px 30px, rgb(0 230 178 / 0%) 0px 0px 40px, rgb(0 230 27 / 24%) 0px 0px 50px, rgb(0 230 178 / 0%) 0px 0px 60px, rgb(0 230 122 / 0%) 0px 0px 70px">Online!</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Calculator -->
+<div class="calculator">
+    <h2 class="calculator-title">Calculator</h2>
+    <input type="text" id="result" readonly onkeypress="handleKeyPress(event)">
+    <div class="numbers">
+        <input type="button" value="1" onclick="addToResult('1')">
+        <input type="button" value="2" onclick="addToResult('2')">
+        <input type="button" value="3" onclick="addToResult('3')">
+        <input type="button" value="4" onclick="addToResult('4')">
+        <input type="button" value="5" onclick="addToResult('5')">
+        <input type="button" value="6" onclick="addToResult('6')">
+        <input type="button" value="7" onclick="addToResult('7')">
+        <input type="button" value="8" onclick="addToResult('8')">
+        <input type="button" value="9" onclick="addToResult('9')">
+        <input type="button" value="0" onclick="addToResult('0')">
+        <input type="button" value="." onclick="addToResult('.')">
+    </div>
+    <div class="symbols">
+        <input type="button" value="+" onclick="addToResult('+')">
+        <input type="button" value="-" onclick="addToResult('-')">
+        <input type="button" value="*" onclick="addToResult('*')">
+        <input type="button" value="/" onclick="addToResult('/')">
+        <input type="button" value="C" class="clear" onclick="clearResult()">
+        <input type="button" value="=" onclick="calculateResult()">
+    </div>
+</div>
+
+<!-- Copyright notice -->
+<div class="copyright">(c) [copyright]</div>
+
+<script>
+    // Toggle for online/offline status
+    let onlineStatus = true; // Set initial status
+
+    function updateOnlineStatus() {
+        const statusElement = document.getElementById('status');
+        if (onlineStatus) {
+            statusElement.textContent = "Online!";
+            statusElement.style.color = "lime";
+        } else {
+            statusElement.textContent = "Offline!";
+            statusElement.style.color = "red";
+        }
+    }
+
+    // Call the function initially to set the status
+    updateOnlineStatus();
+
+    // Function to toggle online/offline status
+    function toggleOnlineStatus() {
+        onlineStatus = !onlineStatus; // Toggle the status
+        updateOnlineStatus(); // Update the status display
+    }
+
+    // Update Poland time every second
+    function updatePolandTime() {
+        const date = new Date();
+        const options = { timeZone: 'Europe/Warsaw', hour12: false };
+        const polandTime = date.toLocaleString('en-US', options);
+        const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        document.getElementById('poland-time').textContent = `${polandTime} (${timeZone})`;
+    }
+
+    setInterval(updatePolandTime, 1000);
+
+    function showSocialLinks() {
+        const socialLinks = document.getElementById('social-links');
+        socialLinks.style.display = 'block'; // Show social links
+        const submitButton = document.getElementById('submit-button');
+        submitButton.style.display = 'none'; // Hide submit button
+    }
+
+    const contactBox = document.getElementById('contact-box');
+    contactBox.style.textAlign = 'center'; // Center the contact box
+
+    const hcaptcha = document.querySelector('.h-captcha');
+    hcaptcha.setAttribute('data-callback', 'showSubmitButton');
+
+    function showSubmitButton() {
+        setTimeout(function() {
+            const submitButton = document.getElementById('submit-button');
+            submitButton.style.display = 'inline-block'; // Show submit button
+        }, 1000); // 1000 milliseconds = 1 second
+    }
+
+    function revealEmail() {
+        const emailSpan = document.getElementById('email');
+        emailSpan.textContent = '[email]';
+    }
+
+    function hideEmail() {
+        const emailSpan = document.getElementById('email');
+        emailSpan.textContent = '[Hover to reveal]';
+    }
+
+    // Calculator functions
+    function addToResult(value) {
+        document.getElementById('result').value += value;
+    }
+
+    function clearResult() {
+        document.getElementById('result').value = '';
+    }
+
+    function calculateResult() {
+        try {
+            const result = eval(document.getElementById('result').value);
+            document.getElementById('result').value = result;
+        } catch (error) {
+            document.getElementById('result').value = 'Error';
+        }
+    }
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            calculateResult();
+        } else if (event.key === 'c' || event.key === 'C') {
+            clearResult();
+        } else {
+            addToResult(event.key);
+        }
+    }
+</script>
+
+</body>
+</html>
